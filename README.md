@@ -13,6 +13,3 @@ Python Flask + Bootstrap + MySQL project for vehicle service booking.
 - Admin dashboard with reports
 - Admin approve, complete, cancel, or reset booking status
 - Admin booking search/filter by customer, vehicle, service, status, and date range
-
-
-`database.sql` is included if you want to create the database manually, but running the Flask app is enough.
