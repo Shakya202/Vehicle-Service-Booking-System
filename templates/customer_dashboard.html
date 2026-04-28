@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Customer Dashboard - Vehicle Service Booking System{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+    <div>
+        <h1 class="h3 fw-bold mb-1">Customer Dashboard</h1>
+        <p class="text-muted mb-0">Create bookings and check current service status.</p>
+    </div>
+    <a href="{{ url_for('create_booking') }}" class="btn btn-primary">
+        <i class="bi bi-calendar-plus me-1"></i>New Booking
+    </a>
+</div>
+
+<div class="row g-3 mb-4">
+    {% for service in services %}
+        <div class="col-md-6 col-xl-3">
+            <div class="mini-service">
+                <span class="small text-muted">{{ service.duration_minutes }} min</span>
+                <h2 class="h6 fw-bold mb-1">{{ service.name }}</h2>
+                <strong>Rs. {{ "%.2f"|format(service.base_price) }}</strong>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<div class="section-panel">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="h5 fw-bold mb-0">Recent Bookings</h2>
+        <a href="{{ url_for('booking_history') }}" class="btn btn-outline-secondary btn-sm">View All</a>
+    </div>
+    {% if bookings %}
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Service</th>
+                        <th>Vehicle</th>
+                        <th>Date</th>
+                        <th>Price</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for booking in bookings %}
+                        <tr>
+                            <td>{{ booking.id }}</td>
+                            <td>{{ booking.service_name }}</td>
+                            <td>{{ booking.vehicle_number }}</td>
+                            <td>{{ booking.booking_date }} {{ booking.booking_time }}</td>
+                            <td>Rs. {{ "%.2f"|format(booking.total_price) }}</td>
+                            <td><span class="status-pill status-{{ booking.status }}">{{ booking.status }}</span></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p class="text-muted mb-0">No bookings yet.</p>
+    {% endif %}
+</div>
+{% endblock %}
