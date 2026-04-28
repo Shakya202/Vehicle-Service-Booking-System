@@ -1,4 +1,4 @@
-# Vehicle Service Booking System
+# Vehicle Service Mart
 
 Python Flask + Bootstrap + MySQL project for vehicle service booking.
 
@@ -36,21 +36,34 @@ Password: admin123
 
 ## Setup
 
+Project structure:
+
+```text
+backend/   Flask backend, routes, MySQL connection, database script
+frontend/  HTML templates, CSS, images
+```
+
 1. Install dependencies:
 
 ```bash
-pip install -r requirements.txt
+py -m pip install -r requirements.txt
 ```
 
 2. Make sure MySQL Server is running.
 
-3. Run the project:
+3. Initialize the database:
 
 ```bash
-py -m flask --app app run --debug
+py -m flask --app backend.app init-db
 ```
 
-4. Open:
+4. Run the project:
+
+```bash
+py -m flask --app backend.app run --debug
+```
+
+5. Open:
 
 ```text
 http://127.0.0.1:5000
@@ -70,4 +83,4 @@ set SECRET_KEY=change-this-secret
 
 ## Manual Database Script
 
-`database.sql` is included if you want to create the database manually, but running the Flask app is enough.
+`backend/database.sql` is included if you want to create the database manually, but running the Flask app is enough.

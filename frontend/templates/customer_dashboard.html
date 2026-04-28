@@ -1,37 +1,34 @@
 {% extends "base.html" %}
-{% block title %}Booking History - Vehicle Service Booking System{% endblock %}
+{% block title %}Customer Dashboard - Vehicle Service Mart{% endblock %}
 
 {% block content %}
 <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
     <div>
-        <h1 class="h3 fw-bold mb-1">My Booking History</h1>
-        <p class="text-muted mb-0">Search by vehicle number or service and filter by status.</p>
+        <h1 class="h3 fw-bold mb-1">Customer Dashboard</h1>
+        <p class="text-muted mb-0">Create bookings and check current service status.</p>
     </div>
     <a href="{{ url_for('create_booking') }}" class="btn btn-primary">
-        <i class="bi bi-calendar-plus me-1"></i>Create Booking
+        <i class="bi bi-calendar-plus me-1"></i>New Booking
     </a>
 </div>
 
-<form method="get" class="filter-bar row g-2 mb-3">
-    <div class="col-md-5">
-        <input type="search" name="search" class="form-control" placeholder="Search vehicle or service" value="{{ search }}">
-    </div>
-    <div class="col-md-4">
-        <select name="status" class="form-select">
-            <option value="">All statuses</option>
-            {% for status in valid_statuses %}
-                <option value="{{ status }}" {% if selected_status == status %}selected{% endif %}>{{ status }}</option>
-            {% endfor %}
-        </select>
-    </div>
-    <div class="col-md-3 d-grid">
-        <button class="btn btn-outline-primary" type="submit">
-            <i class="bi bi-search me-1"></i>Filter
-        </button>
-    </div>
-</form>
+<div class="row g-3 mb-4">
+    {% for service in services %}
+        <div class="col-md-6 col-xl-3">
+            <div class="mini-service">
+                <span class="small text-muted">{{ service.duration_minutes }} min</span>
+                <h2 class="h6 fw-bold mb-1">{{ service.name }}</h2>
+                <strong>Rs. {{ "%.2f"|format(service.base_price) }}</strong>
+            </div>
+        </div>
+    {% endfor %}
+</div>
 
 <div class="section-panel">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="h5 fw-bold mb-0">Recent Bookings</h2>
+        <a href="{{ url_for('booking_history') }}" class="btn btn-outline-secondary btn-sm">View All</a>
+    </div>
     {% if bookings %}
         <div class="table-responsive">
             <table class="table align-middle">
@@ -40,10 +37,9 @@
                         <th>#</th>
                         <th>Service</th>
                         <th>Vehicle</th>
-                        <th>Date/Time</th>
+                        <th>Date</th>
                         <th>Price</th>
                         <th>Status</th>
-                        <th>Notes</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -55,14 +51,13 @@
                             <td>{{ booking.booking_date }} {{ booking.booking_time }}</td>
                             <td>Rs. {{ "%.2f"|format(booking.total_price) }}</td>
                             <td><span class="status-pill status-{{ booking.status }}">{{ booking.status }}</span></td>
-                            <td>{{ booking.notes or '-' }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
     {% else %}
-        <p class="text-muted mb-0">No matching bookings found.</p>
+        <p class="text-muted mb-0">No bookings yet.</p>
     {% endif %}
 </div>
 {% endblock %}
