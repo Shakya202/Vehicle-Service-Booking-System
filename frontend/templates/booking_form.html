@@ -2,50 +2,72 @@
 {% block title %}Create Booking - Vehicle Service Mart{% endblock %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-lg-8">
-        <div class="section-panel">
-            <h1 class="h3 fw-bold mb-3">Create Booking</h1>
-            <form method="post" class="row g-3">
+<section class="booking-pro">
+    <div class="booking-pro__shell">
+        <div class="booking-pro__intro">
+            <div>
+                <span class="hero-kicker">Service Appointment</span>
+                <h1>Create Booking</h1>
+                <p>Select a service, add your vehicle details, and submit a workshop appointment request.</p>
+            </div>
+            <span class="booking-pro__badge"><i class="bi bi-calendar2-check"></i></span>
+        </div>
+
+        <form method="post" class="booking-pro__card row g-3">
                 <div class="col-md-6">
                     <label class="form-label">Service</label>
-                    <select name="service_id" id="service_id" class="form-select" required>
-                        <option value="">Select service</option>
-                        {% for service in services %}
-                            {% set current_value = request.form.get('service_id')|int if request.form.get('service_id') else selected_service_id %}
-                            <option value="{{ service.id }}"
-                                    data-price="{{ service.base_price }}"
-                                    data-duration="{{ service.duration_minutes }}"
-                                    {% if current_value == service.id %}selected{% endif %}>
-                                {{ service.name }} - Rs. {{ "%.2f"|format(service.base_price) }}
-                            </option>
-                        {% endfor %}
-                    </select>
+                    <div class="booking-pro__input">
+                        <i class="bi bi-tools"></i>
+                        <select name="service_id" id="service_id" class="form-select" required>
+                            <option value="">Select service</option>
+                            {% for service in services %}
+                                {% set current_value = request.form.get('service_id')|int if request.form.get('service_id') else selected_service_id %}
+                                <option value="{{ service.id }}"
+                                        data-price="{{ service.base_price }}"
+                                        data-duration="{{ service.duration_minutes }}"
+                                        {% if current_value == service.id %}selected{% endif %}>
+                                    {{ service.name }} - Rs. {{ "%.2f"|format(service.base_price) }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Vehicle Number</label>
-                    <input type="text" name="vehicle_number" class="form-control"
-                           placeholder="Example: CAA 1234"
-                           value="{{ request.form.get('vehicle_number', '') }}" required>
+                    <div class="booking-pro__input">
+                        <i class="bi bi-car-front"></i>
+                        <input type="text" name="vehicle_number" class="form-control"
+                               placeholder="Example: CAA 1234"
+                               value="{{ request.form.get('vehicle_number', '') }}" required>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Booking Date</label>
-                    <input type="date" name="booking_date" class="form-control"
-                           min="{{ today }}"
-                           value="{{ request.form.get('booking_date', '') }}" required>
+                    <div class="booking-pro__input">
+                        <i class="bi bi-calendar3"></i>
+                        <input type="date" name="booking_date" class="form-control"
+                               min="{{ today }}"
+                               value="{{ request.form.get('booking_date', '') }}" required>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Booking Time</label>
-                    <input type="time" name="booking_time" class="form-control"
-                           min="08:00" max="17:00"
-                           value="{{ request.form.get('booking_time', '') }}" required>
+                    <div class="booking-pro__input">
+                        <i class="bi bi-clock"></i>
+                        <input type="time" name="booking_time" class="form-control"
+                               min="08:00" max="17:00"
+                               value="{{ request.form.get('booking_time', '') }}" required>
+                    </div>
                 </div>
                 <div class="col-12">
                     <label class="form-label">Notes</label>
-                    <textarea name="notes" class="form-control" rows="3" placeholder="Optional service note">{{ request.form.get('notes', '') }}</textarea>
+                    <div class="booking-pro__input booking-pro__input--textarea">
+                        <i class="bi bi-card-text"></i>
+                        <textarea name="notes" class="form-control" rows="3" placeholder="Optional service note">{{ request.form.get('notes', '') }}</textarea>
+                    </div>
                 </div>
                 <div class="col-12">
-                    <div class="price-box d-flex justify-content-between align-items-center">
+                    <div class="price-box booking-pro__price d-flex justify-content-between align-items-center">
                         <div>
                             <span class="small text-muted d-block">Calculated Price</span>
                             <strong id="priceText">Select a service</strong>
@@ -54,15 +76,14 @@
                     </div>
                 </div>
                 <div class="col-12 d-flex gap-2">
-                    <button class="btn btn-primary" type="submit">
+                    <button class="btn btn-primary booking-pro__submit" type="submit">
                         <i class="bi bi-check2-circle me-1"></i>Submit Booking
                     </button>
-                    <a href="{{ url_for('booking_history') }}" class="btn btn-outline-secondary">History</a>
+                    <a href="{{ url_for('booking_history') }}" class="btn btn-outline-secondary booking-pro__history">History</a>
                 </div>
-            </form>
-        </div>
+        </form>
     </div>
-</div>
+</section>
 {% endblock %}
 
 {% block scripts %}

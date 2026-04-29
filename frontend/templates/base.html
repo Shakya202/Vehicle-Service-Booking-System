@@ -41,7 +41,7 @@
         </div>
     </nav>
 
-    <main class="container py-4">
+    <main class="{% block main_class %}container py-4{% endblock %}">
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 <div class="mb-3">
@@ -57,12 +57,14 @@
         {% block content %}{% endblock %}
     </main>
 
-    <footer class="border-top py-3 mt-4">
-        <div class="container small text-muted d-flex justify-content-between flex-wrap gap-2">
-            <span>Vehicle Service Mart</span>
-            <span>&copy; {{ current_year }}</span>
-        </div>
-    </footer>
+    {% block footer %}
+        <footer class="border-top py-3 mt-4">
+            <div class="container small text-muted d-flex justify-content-between flex-wrap gap-2">
+                <span>Vehicle Service Mart</span>
+                <span>&copy; {{ current_year }}</span>
+            </div>
+        </footer>
+    {% endblock %}
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     {% block scripts %}{% endblock %}
