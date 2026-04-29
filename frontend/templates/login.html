@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Login - Vehicle Service Mart{% endblock %}
+{% block main_class %}login-main{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block content %}
+<section class="login-glass" style="background-image: url('{{ url_for('static', filename='login-glass-service.png') }}');">
+    <div class="login-glass__overlay">
+        <div class="login-glass__content">
+            <div class="login-glass__intro">
+                <span class="hero-kicker">Secure Access</span>
+                <h1>Vehicle Service Mart</h1>
+                <p>Sign in to manage bookings, service history, and workshop schedules.</p>
+            </div>
+
+            <section class="login-glass__card" aria-labelledby="login-title">
+                <div class="login-glass__header">
+                    <span class="login-glass__badge"><i class="bi bi-person-lock"></i></span>
+                    <div>
+                        <h2 id="login-title">Login</h2>
+                        <p>Continue to your account.</p>
+                    </div>
+                </div>
+
+                <form method="post" class="login-glass__form">
+                    <div>
+                        <label class="form-label" for="email">Email Address</label>
+                        <div class="login-glass__input">
+                            <i class="bi bi-envelope"></i>
+                            <input id="email" type="email" name="email" class="form-control" placeholder="name@example.com" required autofocus>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="form-label" for="password">Password</label>
+                        <div class="login-glass__input">
+                            <i class="bi bi-lock"></i>
+                            <input id="password" type="password" name="password" class="form-control" placeholder="Enter your password" required>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary login-glass__submit" type="submit">
+                        <i class="bi bi-box-arrow-in-right me-2"></i>Login
+                    </button>
+                </form>
+            </section>
+        </div>
+    </div>
+</section>
+{% endblock %}

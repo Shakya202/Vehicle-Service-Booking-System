@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}Services - Vehicle Service Mart{% endblock %}
+
+{% block content %}
+<section class="services-hero" style="background-image: url('{{ url_for('static', filename='hero-workshop.png') }}');">
+    <div class="services-hero__overlay">
+        <div class="services-hero__copy">
+            <span class="hero-kicker">Professional Care</span>
+            <h1>Vehicle Services</h1>
+            <p>Choose the right service package with transparent pricing, clear duration, and trusted workshop care.</p>
+        </div>
+        {% if g.user and g.user.role == 'customer' %}
+            <a href="{{ url_for('create_booking') }}" class="btn btn-light services-hero__action">
+                <i class="bi bi-calendar-plus me-2"></i>Create Booking
+            </a>
+        {% endif %}
+    </div>
+</section>
+
+<section class="services-summary" aria-label="Service highlights">
+    <div>
+        <i class="bi bi-shield-check"></i>
+        <span>Quality inspection</span>
+    </div>
+    <div>
+        <i class="bi bi-cash-coin"></i>
+        <span>Fixed base prices</span>
+    </div>
+    <div>
+        <i class="bi bi-clock-history"></i>
+        <span>Estimated durations</span>
+    </div>
+    <div>
+        <i class="bi bi-clipboard2-check"></i>
+        <span>Easy booking flow</span>
+    </div>
+</section>
+
+<div class="section-heading services-heading">
+    <h2>Available Service Packages</h2>
+    <p>Compare each package and select the option that matches your vehicle's current service need.</p>
+</div>
+
+<div class="row g-4 services-grid">
+    {% for service in services %}
+        <div class="col-md-6 col-xl-3">
+            <article class="service-card service-card--catalog service-card--{{ loop.index }} h-100">
+                <div class="service-card__top">
+                    <div class="service-icon service-icon--catalog">
+                        {% if service.name == 'Oil Change' %}
+                            <i class="bi bi-droplet-half"></i>
+                        {% elif service.name == 'Repair' %}
+                            <i class="bi bi-wrench-adjustable"></i>
+                        {% elif service.name == 'Wash' %}
+                            <i class="bi bi-stars"></i>
+                        {% else %}
+                            <i class="bi bi-tools"></i>
+                        {% endif %}
+                    </div>
+                    <span class="duration-pill">{{ service.duration_minutes }} min</span>
+                </div>
+
+                <h3>{{ service.name }}</h3>
+                <p>{{ service.description }}</p>
+
+                <div class="service-card__meta mt-auto">
+                    <span>Starting from</span>
+                    <strong>Rs. {{ "%.2f"|format(service.base_price) }}</strong>
+                </div>
+
+                {% if g.user and g.user.role == 'customer' %}
+                    <a href="{{ url_for('create_booking', service_id=service.id) }}" class="btn btn-primary w-100 mt-3">
+                        <i class="bi bi-calendar2-check me-2"></i>Book Now
+                    </a>
+                {% endif %}
+            </article>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

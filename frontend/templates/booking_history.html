@@ -1,40 +1,52 @@
 {% extends "base.html" %}
-{% block title %}Booking History - Vehicle Service Booking System{% endblock %}
+{% block title %}Booking History - Vehicle Service Mart{% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+<section class="customer-hero history-hero">
     <div>
-        <h1 class="h3 fw-bold mb-1">My Booking History</h1>
-        <p class="text-muted mb-0">Search by vehicle number or service and filter by status.</p>
+        <span class="hero-kicker">Service Records</span>
+        <h1>My Booking History</h1>
+        <p>Search service records, review vehicle appointments, and track each booking status.</p>
     </div>
-    <a href="{{ url_for('create_booking') }}" class="btn btn-primary">
-        <i class="bi bi-calendar-plus me-1"></i>Create Booking
+    <a href="{{ url_for('create_booking') }}" class="btn btn-light customer-hero__action">
+        <i class="bi bi-calendar-plus me-2"></i>Create Booking
     </a>
-</div>
+</section>
 
-<form method="get" class="filter-bar row g-2 mb-3">
+<form method="get" class="filter-bar history-filter row g-3 mb-4">
     <div class="col-md-5">
-        <input type="search" name="search" class="form-control" placeholder="Search vehicle or service" value="{{ search }}">
+        <label class="form-label" for="search">Search</label>
+        <div class="history-filter__input">
+            <i class="bi bi-search"></i>
+            <input id="search" type="search" name="search" class="form-control" placeholder="Search vehicle or service" value="{{ search }}">
+        </div>
     </div>
     <div class="col-md-4">
-        <select name="status" class="form-select">
+        <label class="form-label" for="status">Status</label>
+        <select id="status" name="status" class="form-select">
             <option value="">All statuses</option>
             {% for status in valid_statuses %}
                 <option value="{{ status }}" {% if selected_status == status %}selected{% endif %}>{{ status }}</option>
             {% endfor %}
         </select>
     </div>
-    <div class="col-md-3 d-grid">
-        <button class="btn btn-outline-primary" type="submit">
-            <i class="bi bi-search me-1"></i>Filter
+    <div class="col-md-3 d-grid align-items-end">
+        <button class="btn btn-primary history-filter__button" type="submit">
+            <i class="bi bi-funnel me-2"></i>Filter
         </button>
     </div>
 </form>
 
-<div class="section-panel">
+<div class="section-panel customer-bookings-panel history-panel">
+    <div class="customer-panel-heading">
+        <div>
+            <span>Bookings</span>
+            <h2>Service Timeline</h2>
+        </div>
+    </div>
     {% if bookings %}
         <div class="table-responsive">
-            <table class="table align-middle">
+            <table class="table align-middle customer-bookings-table history-table">
                 <thead>
                     <tr>
                         <th>#</th>

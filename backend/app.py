@@ -25,6 +25,9 @@ DB_CONFIG = {
     "database": os.environ.get("MYSQL_DATABASE", "Vehicle_Booking_System"),
 }
 
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+FRONTEND_DIR = os.path.join(PROJECT_ROOT, "frontend")
+
 SERVICE_SEED = [
     (
         "Oil Change",
@@ -58,7 +61,12 @@ WORK_END = time(17, 0)
 
 
 def create_app():
-    app = Flask(__name__)
+    app = Flask(
+        __name__,
+        template_folder=os.path.join(FRONTEND_DIR, "templates"),
+        static_folder=os.path.join(FRONTEND_DIR, "static"),
+        static_url_path="/static",
+    )
     app.config["SECRET_KEY"] = os.environ.get(
         "SECRET_KEY", "vehicle-service-booking-dev-key"
     )
