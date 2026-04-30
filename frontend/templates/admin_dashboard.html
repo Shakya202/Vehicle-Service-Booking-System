@@ -2,53 +2,44 @@
 {% block title %}Admin Dashboard - Vehicle Service Mart{% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+<section class="customer-hero">
     <div>
-        <h1 class="h3 fw-bold mb-1">Admin Dashboard</h1>
-        <p class="text-muted mb-0">Report summary, booking status counts, and service revenue.</p>
+        <span class="hero-kicker">Admin Portal</span>
+        <h1>Admin Dashboard</h1>
+        <p>Monitor bookings, revenue, and service demand with a modern management view.</p>
     </div>
-    <a href="{{ url_for('admin_bookings') }}" class="btn btn-primary">
-        <i class="bi bi-list-check me-1"></i>Manage Bookings
-    </a>
+    <div class="d-flex flex-wrap gap-2">
+        <a href="{{ url_for('admin_bookings') }}" class="btn btn-light customer-hero__action">
+            <i class="bi bi-list-check me-2"></i>Manage Bookings
+        </a>
+        <a href="{{ url_for('services') }}" class="btn btn-outline-light customer-hero__action">
+            <i class="bi bi-tools me-2"></i>View Services
+        </a>
+    </div>
+</section>
+
+<div class="services-summary mb-4">
+    <div>
+        <i class="bi bi-people-fill"></i>
+        <span>Total Bookings<br><strong>{{ stats.total }}</strong></span>
+    </div>
+    <div>
+        <i class="bi bi-hourglass-split"></i>
+        <span>Pending<br><strong>{{ stats.pending }}</strong></span>
+    </div>
+    <div>
+        <i class="bi bi-check-circle"></i>
+        <span>Confirmed<br><strong>{{ stats.confirmed }}</strong></span>
+    </div>
+    <div>
+        <i class="bi bi-bar-chart-line"></i>
+        <span>Revenue<br><strong>Rs. {{ "%.2f"|format(stats.revenue) }}</strong></span>
+    </div>
 </div>
 
-<div class="row g-3 mb-4">
-    <div class="col-sm-6 col-xl-2">
-        <div class="stat-card">
-            <span>Total</span>
-            <strong>{{ stats.total }}</strong>
-        </div>
-    </div>
-    <div class="col-sm-6 col-xl-2">
-        <div class="stat-card pending">
-            <span>Pending</span>
-            <strong>{{ stats.pending }}</strong>
-        </div>
-    </div>
-    <div class="col-sm-6 col-xl-2">
-        <div class="stat-card confirmed">
-            <span>Confirmed</span>
-            <strong>{{ stats.confirmed }}</strong>
-        </div>
-    </div>
-    <div class="col-sm-6 col-xl-2">
-        <div class="stat-card completed">
-            <span>Completed</span>
-            <strong>{{ stats.completed }}</strong>
-        </div>
-    </div>
-    <div class="col-sm-6 col-xl-2">
-        <div class="stat-card cancelled">
-            <span>Cancelled</span>
-            <strong>{{ stats.cancelled }}</strong>
-        </div>
-    </div>
-    <div class="col-sm-6 col-xl-2">
-        <div class="stat-card revenue">
-            <span>Revenue</span>
-            <strong>Rs. {{ "%.2f"|format(stats.revenue) }}</strong>
-        </div>
-    </div>
+<div class="section-heading services-heading">
+    <h2>Operational Snapshot</h2>
+    <p>All the key metrics you need to review booking performance, service demand, and customer flow.</p>
 </div>
 
 <div class="row g-3">
@@ -101,7 +92,7 @@
                                 <td><span class="status-pill status-{{ booking.status }}">{{ booking.status }}</span></td>
                             </tr>
                         {% else %}
-                            <tr><td colspan="5" class="text-muted">No bookings yet.</td></tr>
+                            <tr><td colspan="5" class="text-muted">No recent bookings available.</td></tr>
                         {% endfor %}
                     </tbody>
                 </table>

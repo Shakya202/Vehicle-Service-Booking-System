@@ -1,128 +1,256 @@
 {% extends "base.html" %}
 {% block title %}Home - Vehicle Service Mart{% endblock %}
+{% block main_class %}landing-main{% endblock %}
 
 {% block content %}
-<section class="landing-hero" style="background-image: url('{{ url_for('static', filename='hero-workshop.png') }}');">
+{% set service_images = {
+    'Oil Change': 'service-oil-change.png',
+    'Repair': 'service-repair.png',
+    'Wash': 'service-wash.png',
+    'Full Service': 'service-full-service.png'
+} %}
+
+<section class="landing-hero landing-hero--pro" style="background-image: url('{{ url_for('static', filename='hero-workshop.png') }}');">
     <div class="landing-hero__overlay">
-        <div class="landing-copy">
-            <span class="hero-kicker">Professional vehicle care booking</span>
-            <h1>Vehicle Service Mart</h1>
-            <p>
-                Schedule trusted vehicle services online, see the price before you book,
-                and track every appointment from pending request to completed service.
-            </p>
-            <div class="hero-actions">
-                <a href="{{ url_for('register') }}" class="btn btn-light btn-lg">
-                    <i class="bi bi-calendar-check me-1"></i>Book a Service
-                </a>
-                <a href="{{ url_for('login') }}" class="btn btn-outline-light btn-lg">
-                    <i class="bi bi-box-arrow-in-right me-1"></i>Login
-                </a>
-                <a href="{{ url_for('services') }}" class="btn btn-hero-link btn-lg">
-                    View services <i class="bi bi-arrow-right ms-1"></i>
-                </a>
+        <div class="network-animation" aria-hidden="true">
+            <span class="network-line network-line--1"></span>
+            <span class="network-line network-line--2"></span>
+            <span class="network-line network-line--3"></span>
+            <span class="network-line network-line--4"></span>
+            <span class="network-line network-line--5"></span>
+            <span class="network-line network-line--6"></span>
+            <span class="network-node network-node--1"></span>
+            <span class="network-node network-node--2"></span>
+            <span class="network-node network-node--3"></span>
+            <span class="network-node network-node--4"></span>
+            <span class="network-node network-node--5"></span>
+            <span class="network-node network-node--6"></span>
+        </div>
+        <div class="landing-hero__inner">
+            <div class="landing-copy">
+                <span class="hero-kicker">Trusted vehicle service booking</span>
+                <h1>Vehicle Service Mart</h1>
+                <p>
+                    Book workshop appointments with upfront pricing, verified service times,
+                    and clear status updates from request to completion.
+                </p>
+                <div class="hero-actions">
+                    <a href="{{ url_for('register') }}" class="btn btn-light btn-lg">
+                        <i class="bi bi-calendar-check me-1"></i>Book a Service
+                    </a>
+                    <a href="{{ url_for('services') }}" class="btn btn-outline-light btn-lg">
+                        <i class="bi bi-grid me-1"></i>View Services
+                    </a>
+                </div>
+                <div class="hero-checks">
+                    <span><i class="bi bi-check-circle-fill"></i> Upfront pricing</span>
+                    <span><i class="bi bi-check-circle-fill"></i> 08:00-17:00 bookings</span>
+                    <span><i class="bi bi-check-circle-fill"></i> Admin approval flow</span>
+                </div>
             </div>
-            <div class="hero-checks">
-                <span><i class="bi bi-check-circle-fill"></i> Vehicle number tracking</span>
-                <span><i class="bi bi-check-circle-fill"></i> Time validation</span>
-                <span><i class="bi bi-check-circle-fill"></i> Admin approval</span>
-            </div>
+            <aside class="hero-glass-panel">
+                <span class="hero-panel-label">Today at a glance</span>
+                <h2>Fast, clear, and organized service requests.</h2>
+                <div class="hero-panel-grid">
+                    <div>
+                        <strong>4</strong>
+                        <span>Core services</span>
+                    </div>
+                    <div>
+                        <strong>100%</strong>
+                        <span>Price preview</span>
+                    </div>
+                    <div>
+                        <strong>4</strong>
+                        <span>Status stages</span>
+                    </div>
+                    <div>
+                        <strong>Sun</strong>
+                        <span>Closed day</span>
+                    </div>
+                </div>
+                <div class="hero-panel-note">
+                    <i class="bi bi-shield-check"></i>
+                    <span>Every booking includes vehicle number, date, time, service, and calculated total.</span>
+                </div>
+            </aside>
         </div>
     </div>
 </section>
 
-<section class="landing-strip">
+<section class="landing-strip landing-strip--pro">
     <div>
-        <span class="strip-value">4</span>
-        <span class="strip-label">Core services</span>
+        <i class="bi bi-wrench-adjustable-circle"></i>
+        <span class="strip-value">Oil, wash, repair</span>
+        <span class="strip-label">Essential workshop services</span>
     </div>
     <div>
-        <span class="strip-value">08:00-17:00</span>
-        <span class="strip-label">Booking hours</span>
+        <i class="bi bi-cash-coin"></i>
+        <span class="strip-value">Clear rates</span>
+        <span class="strip-label">No surprise service pricing</span>
     </div>
     <div>
-        <span class="strip-value">4</span>
-        <span class="strip-label">Status levels</span>
+        <i class="bi bi-clock-history"></i>
+        <span class="strip-value">Future slots</span>
+        <span class="strip-label">Validated booking date and time</span>
     </div>
     <div>
-        <span class="strip-value">100%</span>
-        <span class="strip-label">Price shown before booking</span>
+        <i class="bi bi-clipboard2-check"></i>
+        <span class="strip-value">Live status</span>
+        <span class="strip-label">Pending to completed tracking</span>
     </div>
 </section>
 
-<section class="landing-section">
-    <div class="section-heading">
-        <span class="hero-kicker text-primary">Service menu</span>
-        <h2>Choose the right service for your vehicle</h2>
-        <p>Clear pricing, expected duration, and a simple booking flow for every customer request.</p>
+<section class="landing-section landing-section--intro">
+    <div class="intro-copy">
+        <span class="hero-kicker text-primary">Built for everyday service teams</span>
+        <h2>A smoother way to manage customer bookings.</h2>
+    </div>
+    <div class="intro-grid">
+        <div>
+            <i class="bi bi-person-plus"></i>
+            <h3>Customer ready</h3>
+            <p>Customers register, choose a service, enter vehicle details, and submit a booking in minutes.</p>
+        </div>
+        <div>
+            <i class="bi bi-speedometer2"></i>
+            <h3>Admin focused</h3>
+            <p>Admins review incoming requests, update status, and keep the service queue organized.</p>
+        </div>
+        <div>
+            <i class="bi bi-bar-chart-line"></i>
+            <h3>Report friendly</h3>
+            <p>Booking filters and dashboard summaries make daily operations easier to monitor.</p>
+        </div>
+    </div>
+</section>
+
+<section class="landing-section landing-services-pro">
+    <div class="section-heading section-heading--split">
+        <div>
+            <span class="hero-kicker text-primary">Service menu</span>
+            <h2>Choose the right care package for your vehicle.</h2>
+        </div>
+        <p>Professional service categories with clear duration estimates and upfront calculated pricing.</p>
     </div>
     <div class="row g-3">
         {% for service in services %}
             <div class="col-md-6 col-xl-3">
                 <div class="service-card service-card--landing h-100">
-                    <div class="service-icon">
-                        {% if service.name == 'Oil Change' %}
-                            <i class="bi bi-droplet-half"></i>
-                        {% elif service.name == 'Repair' %}
-                            <i class="bi bi-wrench-adjustable"></i>
-                        {% elif service.name == 'Wash' %}
-                            <i class="bi bi-stars"></i>
-                        {% else %}
-                            <i class="bi bi-shield-check"></i>
-                        {% endif %}
+                    <div class="service-card__image">
+                        <img src="{{ url_for('static', filename=service_images.get(service.name, 'service-montage.png')) }}" alt="{{ service.name }} vehicle service">
                     </div>
-                    <h3 class="h5 fw-bold">{{ service.name }}</h3>
-                    <p class="text-muted small">{{ service.description }}</p>
-                    <div class="d-flex justify-content-between align-items-end mt-auto">
-                        <div>
-                            <span class="small text-muted d-block">Price</span>
-                            <strong>Rs. {{ "%.2f"|format(service.base_price) }}</strong>
+                    <div class="service-card__content">
+                        <div class="service-icon">
+                            {% if service.name == 'Oil Change' %}
+                                <i class="bi bi-droplet-half"></i>
+                            {% elif service.name == 'Repair' %}
+                                <i class="bi bi-wrench-adjustable"></i>
+                            {% elif service.name == 'Wash' %}
+                                <i class="bi bi-stars"></i>
+                            {% else %}
+                                <i class="bi bi-shield-check"></i>
+                            {% endif %}
                         </div>
-                        <span class="badge text-bg-light">{{ service.duration_minutes }} min</span>
+                        <h3 class="h5 fw-bold">{{ service.name }}</h3>
+                        <p class="text-muted small">{{ service.description }}</p>
+                        <div class="d-flex justify-content-between align-items-end mt-auto">
+                            <div>
+                                <span class="small text-muted d-block">Starting from</span>
+                                <strong>Rs. {{ "%.2f"|format(service.base_price) }}</strong>
+                            </div>
+                            <span class="badge text-bg-light">{{ service.duration_minutes }} min</span>
+                        </div>
+                        <a href="{{ url_for('register') }}" class="service-link">Start booking <i class="bi bi-arrow-up-right"></i></a>
                     </div>
-                    <a href="{{ url_for('register') }}" class="service-link">Start booking <i class="bi bi-arrow-up-right"></i></a>
                 </div>
             </div>
         {% endfor %}
     </div>
 </section>
 
-<section class="landing-section landing-workflow">
-    <div class="section-heading">
-        <span class="hero-kicker text-primary">How it works</span>
-        <h2>From request to completed service</h2>
-        <p>The customer and admin flows stay connected through one booking record.</p>
+<section class="landing-section landing-showcase landing-showcase--pro">
+    <div class="landing-showcase__copy">
+        <span class="hero-kicker text-primary">Workshop experience</span>
+        <h2>Clean bays, better coordination, and service records in one place.</h2>
+        <p>
+            A clean booking flow helps customers request service confidently while the workshop
+            team keeps every appointment visible and actionable.
+        </p>
+        <div class="showcase-points">
+            <span><i class="bi bi-car-front-fill"></i> Vehicle-number based records</span>
+            <span><i class="bi bi-clock-history"></i> Validated operating hours</span>
+            <span><i class="bi bi-clipboard2-check"></i> Staff-managed status updates</span>
+        </div>
     </div>
-    <div class="row g-3">
-        <div class="col-md-4">
-            <div class="step-card">
-                <span><i class="bi bi-ui-checks-grid"></i></span>
-                <h3>Select service</h3>
-                <p>Customer registers, selects a service, enters vehicle number, date, and time.</p>
-            </div>
+    <div class="landing-showcase__media">
+        <img src="{{ url_for('static', filename='service-montage.png') }}" alt="Vehicle service workshop scenes">
+    </div>
+</section>
+
+<section class="landing-section landing-workflow">
+    <div class="section-heading section-heading--split">
+        <div>
+            <span class="hero-kicker text-primary">How it works</span>
+            <h2>From request to completed service.</h2>
         </div>
-        <div class="col-md-4">
-            <div class="step-card">
-                <span><i class="bi bi-person-check"></i></span>
-                <h3>Admin confirms</h3>
-                <p>Admin reviews bookings and updates status to confirmed, completed, or cancelled.</p>
-            </div>
+        <p>A simple operating flow for customers and admins, connected through one booking record.</p>
+    </div>
+    <div class="workflow-timeline">
+        <div class="step-card">
+            <span><i class="bi bi-ui-checks-grid"></i></span>
+            <small>Step 01</small>
+            <h3>Select service</h3>
+            <p>Customer chooses a service, date, time, and vehicle number.</p>
         </div>
-        <div class="col-md-4">
-            <div class="step-card">
-                <span><i class="bi bi-graph-up-arrow"></i></span>
-                <h3>Track history</h3>
-                <p>Customers can search history while admins filter bookings and view simple reports.</p>
-            </div>
+        <div class="step-card">
+            <span><i class="bi bi-person-check"></i></span>
+            <small>Step 02</small>
+            <h3>Admin confirms</h3>
+            <p>The workshop reviews the request and updates the booking status.</p>
+        </div>
+        <div class="step-card">
+            <span><i class="bi bi-tools"></i></span>
+            <small>Step 03</small>
+            <h3>Service completed</h3>
+            <p>The vehicle service is tracked through completion or cancellation.</p>
+        </div>
+        <div class="step-card">
+            <span><i class="bi bi-search"></i></span>
+            <small>Step 04</small>
+            <h3>History remains</h3>
+            <p>Customers and admins can search, filter, and review booking records.</p>
         </div>
     </div>
 </section>
 
-<section class="landing-cta">
+<section class="landing-section landing-proof">
+    <div>
+        <span class="hero-kicker text-primary">Operations ready</span>
+        <h2>Designed for a modern vehicle service counter.</h2>
+        <p>Replace phone-note chaos with a clean digital queue that keeps bookings searchable, priced, and status-aware.</p>
+    </div>
+    <div class="proof-list">
+        <div>
+            <i class="bi bi-calendar2-week"></i>
+            <span>Future booking validation</span>
+        </div>
+        <div>
+            <i class="bi bi-funnel"></i>
+            <span>Admin filters and reports</span>
+        </div>
+        <div>
+            <i class="bi bi-currency-exchange"></i>
+            <span>Server-side price calculation</span>
+        </div>
+    </div>
+</section>
+
+<section class="landing-cta landing-cta--pro">
     <div>
         <span class="hero-kicker text-primary">Ready when your vehicle is</span>
-        <h2>Book your next service in minutes.</h2>
-        <p>Register as a customer and create your first pending booking with a vehicle number, date, time, and calculated price.</p>
+        <h2>Book your next vehicle service with confidence.</h2>
+        <p>Create a customer account, choose your service, and submit a pending booking with price, vehicle details, date, and time.</p>
     </div>
     <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg">
         <i class="bi bi-calendar-plus me-1"></i>Create Booking

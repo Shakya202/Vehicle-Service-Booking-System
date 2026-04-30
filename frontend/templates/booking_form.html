@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Create Booking - Vehicle Service Mart{% endblock %}
+{% block main_class %}booking-page{% endblock %}
 
 {% block content %}
 <section class="booking-pro">
@@ -13,8 +14,17 @@
             <span class="booking-pro__badge"><i class="bi bi-calendar2-check"></i></span>
         </div>
 
-        <form method="post" class="booking-pro__card row g-3">
-                <div class="col-md-6">
+        <form method="post" class="booking-pro__card">
+            <div class="booking-pro__section">
+                <div class="booking-pro__section-title">
+                    <span>01</span>
+                    <div>
+                        <h2>Service Details</h2>
+                        <p>Choose the service package and add the vehicle number.</p>
+                    </div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-6">
                     <label class="form-label">Service</label>
                     <div class="booking-pro__input">
                         <i class="bi bi-tools"></i>
@@ -31,8 +41,8 @@
                             {% endfor %}
                         </select>
                     </div>
-                </div>
-                <div class="col-md-6">
+                    </div>
+                    <div class="col-md-6">
                     <label class="form-label">Vehicle Number</label>
                     <div class="booking-pro__input">
                         <i class="bi bi-car-front"></i>
@@ -40,8 +50,20 @@
                                placeholder="Example: CAA 1234"
                                value="{{ request.form.get('vehicle_number', '') }}" required>
                     </div>
+                    </div>
                 </div>
-                <div class="col-md-6">
+            </div>
+
+            <div class="booking-pro__section">
+                <div class="booking-pro__section-title">
+                    <span>02</span>
+                    <div>
+                        <h2>Appointment Slot</h2>
+                        <p>Select a future date and a time between 08:00 and 17:00.</p>
+                    </div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-6">
                     <label class="form-label">Booking Date</label>
                     <div class="booking-pro__input">
                         <i class="bi bi-calendar3"></i>
@@ -49,8 +71,8 @@
                                min="{{ today }}"
                                value="{{ request.form.get('booking_date', '') }}" required>
                     </div>
-                </div>
-                <div class="col-md-6">
+                    </div>
+                    <div class="col-md-6">
                     <label class="form-label">Booking Time</label>
                     <div class="booking-pro__input">
                         <i class="bi bi-clock"></i>
@@ -58,29 +80,44 @@
                                min="08:00" max="17:00"
                                value="{{ request.form.get('booking_time', '') }}" required>
                     </div>
+                    </div>
                 </div>
-                <div class="col-12">
+            </div>
+
+            <div class="booking-pro__section">
+                <div class="booking-pro__section-title">
+                    <span>03</span>
+                    <div>
+                        <h2>Extra Notes</h2>
+                        <p>Add anything the service team should know before the appointment.</p>
+                    </div>
+                </div>
+                <div>
                     <label class="form-label">Notes</label>
                     <div class="booking-pro__input booking-pro__input--textarea">
                         <i class="bi bi-card-text"></i>
                         <textarea name="notes" class="form-control" rows="3" placeholder="Optional service note">{{ request.form.get('notes', '') }}</textarea>
                     </div>
                 </div>
-                <div class="col-12">
-                    <div class="price-box booking-pro__price d-flex justify-content-between align-items-center">
-                        <div>
-                            <span class="small text-muted d-block">Calculated Price</span>
-                            <strong id="priceText">Select a service</strong>
-                        </div>
-                        <span id="durationText" class="badge text-bg-light">Duration</span>
+            </div>
+
+            <div class="booking-pro__footer">
+                <div class="price-box booking-pro__price">
+                    <div>
+                        <span>Calculated Price</span>
+                        <strong id="priceText">Select a service</strong>
                     </div>
+                    <span id="durationText" class="badge text-bg-light">Duration</span>
                 </div>
-                <div class="col-12 d-flex gap-2">
+                <div class="booking-pro__actions">
                     <button class="btn btn-primary booking-pro__submit" type="submit">
                         <i class="bi bi-check2-circle me-1"></i>Submit Booking
                     </button>
-                    <a href="{{ url_for('booking_history') }}" class="btn btn-outline-secondary booking-pro__history">History</a>
+                    <a href="{{ url_for('booking_history') }}" class="btn btn-outline-secondary booking-pro__history">
+                        <i class="bi bi-clock-history me-1"></i>History
+                    </a>
                 </div>
+            </div>
         </form>
     </div>
 </section>
