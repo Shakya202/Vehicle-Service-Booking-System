@@ -2,48 +2,61 @@
 {% block title %}Manage Bookings - Vehicle Service Mart{% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+<section class="customer-hero">
     <div>
-        <h1 class="h3 fw-bold mb-1">Manage Bookings</h1>
-        <p class="text-muted mb-0">Search, filter, approve, complete, or cancel customer bookings.</p>
+        <span class="hero-kicker">Booking Control</span>
+        <h1>Manage Bookings</h1>
+        <p>Search, filter, and update booking statuses with a clean admin workspace.</p>
     </div>
-    <a href="{{ url_for('admin_dashboard') }}" class="btn btn-outline-secondary">
-        <i class="bi bi-speedometer2 me-1"></i>Reports
+    <a href="{{ url_for('admin_dashboard') }}" class="btn btn-light customer-hero__action">
+        <i class="bi bi-speedometer2 me-2"></i>View Dashboard
     </a>
+</section>
+
+<div class="section-heading services-heading mb-3">
+    <h2>Booking Management</h2>
+    <p>Use the filters below to quickly find bookings by customer, service, status, or date range.</p>
 </div>
 
-<form method="get" class="filter-bar row g-2 mb-3">
-    <div class="col-lg-3 col-md-6">
-        <input type="search" name="search" class="form-control" placeholder="Customer, email, vehicle" value="{{ filters.search }}">
-    </div>
-    <div class="col-lg-2 col-md-6">
-        <select name="status" class="form-select">
-            <option value="">All statuses</option>
-            {% for status in valid_statuses %}
-                <option value="{{ status }}" {% if filters.status == status %}selected{% endif %}>{{ status }}</option>
-            {% endfor %}
-        </select>
-    </div>
-    <div class="col-lg-2 col-md-6">
-        <select name="service_id" class="form-select">
-            <option value="">All services</option>
-            {% for service in services %}
-                <option value="{{ service.id }}" {% if filters.service_id == service.id %}selected{% endif %}>{{ service.name }}</option>
-            {% endfor %}
-        </select>
-    </div>
-    <div class="col-lg-2 col-md-6">
-        <input type="date" name="date_from" class="form-control" value="{{ filters.date_from }}">
-    </div>
-    <div class="col-lg-2 col-md-6">
-        <input type="date" name="date_to" class="form-control" value="{{ filters.date_to }}">
-    </div>
-    <div class="col-lg-1 col-md-6 d-grid">
-        <button class="btn btn-outline-primary" type="submit">
-            <i class="bi bi-search"></i>
-        </button>
-    </div>
-</form>
+<div class="section-panel mb-4">
+    <form method="get" class="filter-bar row g-3 align-items-end">
+        <div class="col-lg-3 col-md-6">
+            <label class="form-label visually-hidden" for="search">Search</label>
+            <input type="search" id="search" name="search" class="form-control" placeholder="Customer, email, vehicle" value="{{ filters.search }}">
+        </div>
+        <div class="col-lg-2 col-md-6">
+            <label class="form-label visually-hidden" for="status">Status</label>
+            <select id="status" name="status" class="form-select">
+                <option value="">All statuses</option>
+                {% for status in valid_statuses %}
+                    <option value="{{ status }}" {% if filters.status == status %}selected{% endif %}>{{ status }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-lg-2 col-md-6">
+            <label class="form-label visually-hidden" for="service_id">Service</label>
+            <select id="service_id" name="service_id" class="form-select">
+                <option value="">All services</option>
+                {% for service in services %}
+                    <option value="{{ service.id }}" {% if filters.service_id == service.id %}selected{% endif %}>{{ service.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-lg-2 col-md-6">
+            <label class="form-label visually-hidden" for="date_from">From</label>
+            <input type="date" id="date_from" name="date_from" class="form-control" value="{{ filters.date_from }}">
+        </div>
+        <div class="col-lg-2 col-md-6">
+            <label class="form-label visually-hidden" for="date_to">To</label>
+            <input type="date" id="date_to" name="date_to" class="form-control" value="{{ filters.date_to }}">
+        </div>
+        <div class="col-lg-1 col-md-6 d-grid">
+            <button class="btn btn-primary" type="submit">
+                <i class="bi bi-search"></i>
+            </button>
+        </div>
+    </form>
+</div>
 
 <div class="section-panel">
     {% if bookings %}
