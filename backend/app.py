@@ -349,6 +349,36 @@ def register_routes(app):
 
         return render_template("login.html")
 
+    @app.route("/forgot-password", methods=("GET", "POST"))
+    def forgot_password():
+        if request.method == "POST":
+            email = request.form.get("email", "").strip().lower()
+            password = request.form.get("password", "")
+            confirm_password = request.form.get("confirm_password", "")
+            user = query_one("SELECT id FROM users WHERE email = %s", (email,))
+
+            error = None
+            if not email or not password or not confirm_password:
+                error = "All fields are required."
+            elif user is None:
+                error = "No account found with this email address."
+            elif len(password) < 6:
+                error = "Password must contain at least 6 characters."
+            elif password != confirm_password:
+                error = "Passwords do not match."
+
+            if error:
+                flash(error, "danger")
+            else:
+                execute(
+                    "UPDATE users SET password_hash = %s WHERE id = %s",
+                    (generate_password_hash(password), user["id"]),
+                )
+                flash("Password reset successful. Please login with your new password.", "success")
+                return redirect(url_for("login"))
+
+        return render_template("forgot_password.html")
+
     @app.route("/logout")
     def logout():
         session.clear()

@@ -1,0 +1,8 @@
+2026-05-06T04:23:29.343443Z 0 [System] [MY-010116] [Server] C:\Program Files\MySQL\MySQL Server 8.0\bin\mysqld.exe (mysqld 8.0.45) starting as process 10548
+2026-05-06T04:23:29.402477Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2026-05-06T04:23:29.679569Z 1 [ERROR] [MY-013039] [InnoDB] Can't create UNDO tablespace innodb_undo_001  since '.\undo_001' already exists.
+2026-05-06T04:23:29.680597Z 1 [ERROR] [MY-012930] [InnoDB] Plugin initialization aborted with error Generic error.
+2026-05-06T04:23:29.749447Z 1 [ERROR] [MY-010334] [Server] Failed to initialize DD Storage Engine
+2026-05-06T04:23:29.750854Z 0 [ERROR] [MY-010020] [Server] Data Dictionary initialization failed.
+2026-05-06T04:23:29.751343Z 0 [ERROR] [MY-010119] [Server] Aborting
+2026-05-06T04:23:29.751910Z 0 [System] [MY-010910] [Server] C:\Program Files\MySQL\MySQL Server 8.0\bin\mysqld.exe: Shutdown complete (mysqld 8.0.45)  MySQL Community Server - GPL.

@@ -1,0 +1,6 @@
+2026-05-06T04:22:37.565709Z 0 [System] [MY-010116] [Server] C:\Program Files\MySQL\MySQL Server 8.0\bin\mysqld.exe (mysqld 8.0.45) starting as process 11300
+2026-05-06T04:22:37.602246Z 0 [Warning] [MY-010075] [Server] No existing UUID has been found, so we assume that this is the first time that this server has been started. Generating a new UUID: 36a96bc2-4903-11f1-9928-9829a66b72b9.
+2026-05-06T04:22:37.625842Z 1 [ERROR] [MY-011011] [Server] Failed to find valid data directory.
+2026-05-06T04:22:37.626592Z 0 [ERROR] [MY-010020] [Server] Data Dictionary initialization failed.
+2026-05-06T04:22:37.626802Z 0 [ERROR] [MY-010119] [Server] Aborting
+2026-05-06T04:22:37.628897Z 0 [System] [MY-010910] [Server] C:\Program Files\MySQL\MySQL Server 8.0\bin\mysqld.exe: Shutdown complete (mysqld 8.0.45)  MySQL Community Server - GPL.
