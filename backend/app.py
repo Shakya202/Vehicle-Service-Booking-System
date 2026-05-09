@@ -20,6 +20,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 DB_CONFIG = {
     "host": os.environ.get("MYSQL_HOST", "localhost"),
+    "port": int(os.environ.get("MYSQL_PORT", 3306)),
     "user": os.environ.get("MYSQL_USER", "root"),
     "password": os.environ.get("MYSQL_PASSWORD", "0987654321"),
     "database": os.environ.get("MYSQL_DATABASE", "Vehicle_Booking_System"),
