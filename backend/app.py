@@ -26,6 +26,9 @@ DB_CONFIG = {
     "database": os.environ.get("MYSQL_DATABASE", "Vehicle_Booking_System"),
 }
 
+if "aivencloud.com" in DB_CONFIG["host"]:
+    DB_CONFIG["ssl_disabled"] = False
+
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FRONTEND_DIR = os.path.join(PROJECT_ROOT, "frontend")
 
@@ -89,6 +92,11 @@ def connect(include_database=True):
 
 
 def ensure_database():
+    if os.environ.get("MYSQL_HOST") and DB_CONFIG["host"] not in {"localhost", "127.0.0.1"}:
+        with connect() as db:
+            db.ping(reconnect=True)
+        return
+
     with connect(include_database=False) as db:
         cursor = db.cursor()
         cursor.execute(
