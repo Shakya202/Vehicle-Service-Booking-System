@@ -3,12 +3,19 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#07111f">
     <title>{% block title %}Vehicle Service Mart{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
 </head>
 <body>
+    <div class="page-loader" aria-hidden="true">
+        <span></span>
+    </div>
     <div class="site-network-bg" aria-hidden="true">
         <span class="site-network-bg__line site-network-bg__line--1"></span>
         <span class="site-network-bg__line site-network-bg__line--2"></span>
@@ -31,24 +38,56 @@
             </button>
             <div class="collapse navbar-collapse" id="mainNav">
                 <ul class="navbar-nav ms-auto align-items-lg-center">
-                    <li class="nav-item"><a class="nav-link" href="{{ url_for('services') }}">Services</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'services' %}active{% endif %}" href="{{ url_for('services') }}">
+                            <i class="bi bi-grid-1x2 me-1"></i>Services
+                        </a>
+                    </li>
                     {% if g.user %}
                         {% if g.user.role == 'admin' %}
-                            <li class="nav-item"><a class="nav-link" href="{{ url_for('admin_dashboard') }}">Admin Dashboard</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ url_for('admin_bookings') }}">Bookings</a></li>
+                            <li class="nav-item">
+                                <a class="nav-link {% if request.endpoint == 'admin_dashboard' %}active{% endif %}" href="{{ url_for('admin_dashboard') }}">
+                                    <i class="bi bi-speedometer2 me-1"></i>Admin Dashboard
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% if request.endpoint == 'admin_bookings' %}active{% endif %}" href="{{ url_for('admin_bookings') }}">
+                                    <i class="bi bi-list-check me-1"></i>Bookings
+                                </a>
+                            </li>
                         {% else %}
-                            <li class="nav-item"><a class="nav-link" href="{{ url_for('create_booking') }}">Create Booking</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ url_for('booking_history') }}">My History</a></li>
+                            <li class="nav-item">
+                                <a class="nav-link {% if request.endpoint == 'create_booking' %}active{% endif %}" href="{{ url_for('create_booking') }}">
+                                    <i class="bi bi-calendar-plus me-1"></i>Create Booking
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% if request.endpoint == 'booking_history' %}active{% endif %}" href="{{ url_for('booking_history') }}">
+                                    <i class="bi bi-clock-history me-1"></i>My History
+                                </a>
+                            </li>
                         {% endif %}
                         <li class="nav-item ms-lg-2">
-                            <span class="navbar-text small text-white-50 me-lg-3">{{ g.user.name }}</span>
+                            <span class="navbar-text site-user-chip me-lg-3">
+                                <i class="bi bi-person-circle me-1"></i>{{ g.user.name }}
+                            </span>
                         </li>
                         <li class="nav-item">
-                            <a class="btn btn-light btn-sm" href="{{ url_for('logout') }}" onclick="return confirm('Are you sure you want to logout?');">Logout</a>
+                            <a class="btn btn-light btn-sm" href="{{ url_for('logout') }}" onclick="return confirm('Are you sure you want to logout?');">
+                                <i class="bi bi-box-arrow-right me-1"></i>Logout
+                            </a>
                         </li>
                     {% else %}
-                        <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Login</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url_for('register') }}">Register</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.endpoint == 'login' %}active{% endif %}" href="{{ url_for('login') }}">
+                                <i class="bi bi-box-arrow-in-right me-1"></i>Login
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-primary btn-sm site-nav-cta" href="{{ url_for('register') }}">
+                                <i class="bi bi-person-plus me-1"></i>Register
+                            </a>
+                        </li>
                     {% endif %}
                 </ul>
             </div>
@@ -72,14 +111,50 @@
     </main>
 
     {% block footer %}
-        <footer class="border-top py-3 mt-4">
-            <div class="container small text-muted d-flex justify-content-between flex-wrap gap-2">
-                <span>Vehicle Service Mart</span>
-                <span>&copy; {{ current_year }}</span>
+        <footer class="site-footer mt-4">
+            <div class="container site-footer__grid">
+                <div class="site-footer__about">
+                    <span class="site-footer__brand"><i class="bi bi-tools me-2"></i>Vehicle Service Mart</span>
+                    <span class="site-footer__copy d-block">Premium service booking for modern workshops.</span>
+                    <div class="site-footer__social" aria-label="Social links">
+                        <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="site-footer__links">
+                    <h2>Platform</h2>
+                    <a href="{{ url_for('services') }}">Services</a>
+                    {% if g.user and g.user.role == 'customer' %}
+                        <a href="{{ url_for('create_booking') }}">Create Booking</a>
+                        <a href="{{ url_for('booking_history') }}">Booking History</a>
+                    {% elif g.user and g.user.role == 'admin' %}
+                        <a href="{{ url_for('admin_dashboard') }}">Admin Dashboard</a>
+                        <a href="{{ url_for('admin_bookings') }}">Manage Bookings</a>
+                    {% else %}
+                        <a href="{{ url_for('login') }}">Login</a>
+                        <a href="{{ url_for('register') }}">Register</a>
+                    {% endif %}
+                </div>
+                <div class="site-footer__links">
+                    <h2>Contact</h2>
+                    <span><i class="bi bi-geo-alt me-2"></i>Colombo, Sri Lanka</span>
+                    <span><i class="bi bi-clock me-2"></i>Mon-Sat, 08:00-17:00</span>
+                    <span><i class="bi bi-envelope me-2"></i>support@vehicleservice.lk</span>
+                </div>
+                <div class="site-footer__bottom">
+                    <span class="site-footer__year">&copy; {{ current_year }} Vehicle Service Mart</span>
+                    <span>Built for secure, responsive service booking.</span>
+                </div>
             </div>
         </footer>
     {% endblock %}
 
+    <script>
+        window.addEventListener("load", () => {
+            document.body.classList.add("page-loaded");
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     {% block scripts %}{% endblock %}
 </body>
