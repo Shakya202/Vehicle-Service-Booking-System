@@ -13,6 +13,30 @@
     </a>
 </section>
 
+<section class="customer-profile-strip mb-4">
+    <div>
+        <span><i class="bi bi-person-badge"></i></span>
+        <div>
+            <small>Signed in as</small>
+            <strong>{{ g.user.name }}</strong>
+        </div>
+    </div>
+    <div>
+        <span><i class="bi bi-envelope-check"></i></span>
+        <div>
+            <small>Email</small>
+            <strong>{{ g.user.email }}</strong>
+        </div>
+    </div>
+    <div>
+        <span><i class="bi bi-shield-check"></i></span>
+        <div>
+            <small>Account type</small>
+            <strong>{{ g.user.role|title }}</strong>
+        </div>
+    </div>
+</section>
+
 <div class="row g-4 mb-4 customer-services">
     {% for service in services %}
         <div class="col-md-6 col-xl-3">
